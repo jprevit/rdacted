@@ -6,15 +6,9 @@ import Navbar from './components/Navbar.vue'
 </script>
 
 <template>
-  <header>
-    <Logo />
-  </header>
   <main>
     <router-view />
   </main>
-  <footer class="bg-dark text-light">
-
-  </footer>
 </template>
 
 <style lang="scss">
@@ -32,9 +26,10 @@ header {
   background-color: #6C805D;
 }
 
-footer {
-  display: grid;
-  place-content: center;
-  height: 32px;
+button {
+  background-color: #A2B990;
+  border: none;
+  height: 3em;
+  clip-path: polygon(25% 0%, 85% 0%, 75% 100%, 15% 100%);
 }
 </style>

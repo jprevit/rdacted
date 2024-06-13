@@ -4,7 +4,7 @@ import rdacted from '../assets/img/rdacted.svg'
 
 
 <template>
-    <div class="ps-3">
+    <div class="p-3">
         <img :src="rdacted" alt="">
     </div>
 </template>

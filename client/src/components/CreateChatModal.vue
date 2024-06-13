@@ -1,0 +1,34 @@
+<script setup>
+
+</script>
+
+
+<template>
+    <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered text-light">
+            <div class="modal-content">
+                <div class="modal-header" data-bs-theme="dark">
+                    <h1 class="modal-title fs-5" id="createModalLabel">Create Chat</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" class="d-flex flex-column gap-3 align-items-center">
+                        <div class="d-flex gap-3 align-items-baseline">
+                            <label for="alias">Alias</label>
+                            <input type="text" placeholder="Choose an Alias..." name="alias">
+                        </div>
+                        <button type="submit" class="w-50 text-light">Create Chat</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+
+<style lang="scss" scoped>
+.modal-content {
+    background-color: #6C805D;
+    border-radius: 0px;
+}
+</style>
