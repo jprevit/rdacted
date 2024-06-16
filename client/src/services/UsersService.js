@@ -1,8 +1,8 @@
 import { api } from "./AxiosService.js"
 
 class UsersService{
-    async createUser(chatData) {
-       const user = await api.post(`${chatData.name}`, chatData)
+    async createUser(data) {
+       const user = await api.post(`${data.name}`, data)
        return user
     }
 
