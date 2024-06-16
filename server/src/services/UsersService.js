@@ -1,6 +1,9 @@
+import { dbContext } from "../db/DbContext.js"
+
 class UsersService{
-    createUser(userData) {
-        throw new Error("Method not implemented.");
+    async createUser(userData) {
+        const user = await dbContext.User.create(userData)
+        return user
     }
 
 }
