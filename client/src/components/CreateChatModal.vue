@@ -1,5 +1,24 @@
 <script setup>
+import { ref } from 'vue';
+import { chatsService } from '../services/ChatsService.js';
+import Pop from '../utils/Pop.js';
 
+const isLoading = ''
+
+const chatData = ref({
+    joinCode: '',
+    name: '',
+    alias: ''
+})
+
+async function createChat() {
+    try {
+        await chatsService.createChat(chatData)
+    }
+    catch (error) {
+        Pop.error(error);
+    }
+}
 </script>
 
 
@@ -12,10 +31,20 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="" class="d-flex flex-column gap-3 align-items-center">
+                    <form v-if="!isLoading" action="" class="d-flex flex-column gap-3 align-items-center">
                         <div class="d-flex gap-3 align-items-baseline">
                             <label for="alias">Alias</label>
-                            <input type="text" placeholder="Choose an Alias..." name="alias">
+                            <input v-model="chatData.alias" type="text" placeholder="Choose an Alias..." name="alias">
+                        </div>
+                        <div class="d-flex gap-3 align-items-baseline">
+                            <label for="alias">Chat Name</label>
+                            <input v-model="chatData.name" type="text" placeholder="Choose a Chatroom Name..."
+                                name="alias">
+                        </div>
+                        <div class="d-flex gap-3 align-items-baseline">
+                            <label for="alias">Join Code</label>
+                            <input v-model="chatData.joinCode" type="text" placeholder="Choose a Join Code..."
+                                name="alias">
                         </div>
                         <button type="submit" class="w-50 text-light">Create Chat</button>
                     </form>
