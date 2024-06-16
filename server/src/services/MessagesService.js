@@ -5,7 +5,11 @@ class MessagesService {
         const message = await dbContext.Message.create(messageData)
         return message
     }
-
+    
+    async getMessages(chatId) {
+        const messages = await dbContext.Message.find({chatId})
+        return messages
+    }
 }
 
 export const messagesService = new MessagesService

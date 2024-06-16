@@ -5,7 +5,11 @@ class ChatsService{
         const chat = await dbContext.Chat.create(chatData)
         return chat
     }
-
+    
+    async getChat(chatId) {
+     const chat = await dbContext.Chat.findOne({name: chatId})
+     return chat
+    }
 }
 
 export const chatsService = new ChatsService
