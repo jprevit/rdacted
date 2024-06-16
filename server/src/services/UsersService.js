@@ -7,7 +7,7 @@ class UsersService{
         return user
     }
 
-    async getUsers(chatId) {
+    async getUsersByChat(chatId) {
         const users = await dbContext.User.find({chatId})
         return users
     }

@@ -6,7 +6,7 @@ export class ChatsController extends BaseController{
         super('api/chats')
         this.router
             .post('', this.createChat)
-            .get('/:chatId', this.getChat)
+            .get('/:chatId', this.getChatByName)
     }
     
     async createChat(req, res, next) {
@@ -19,10 +19,10 @@ export class ChatsController extends BaseController{
         }
     }
 
-    async getChat(req, res, next) {
+    async getChatByName(req, res, next) {
         try {
             const chatId = req.params.chatId
-            const chat = await chatsService.getChat(chatId)
+            const chat = await chatsService.getChatByName(chatId)
             res.send(chat)
         } catch (error) {
             next(error)

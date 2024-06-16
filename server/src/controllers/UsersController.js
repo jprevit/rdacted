@@ -6,7 +6,7 @@ export class UsersController extends BaseController{
         super('api/users')
         this.router
             .post('/:chatId', this.createUser)
-            .get('/:chatId', this.getUsers)
+            .get('/:chatId', this.getUsersByChat)
     }
     async createUser(req, res, next) {
         try {
@@ -19,10 +19,10 @@ export class UsersController extends BaseController{
             next(error)
         }
     }
-    async getUsers(req, res, next) {
+    async getUsersByChat(req, res, next) {
         try {
             const chatId = req.params.chatId
-            const users = await usersService.getUsers(chatId)
+            const users = await usersService.getUsersByChat(chatId)
             res.send(users)
         } catch (error) {
             next(error)

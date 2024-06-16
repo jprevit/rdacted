@@ -6,7 +6,7 @@ class ChatsService{
         return chat
     }
     
-    async getChat(chatId) {
+    async getChatByName(chatId) {
      const chat = await dbContext.Chat.findOne({name: chatId})
      return chat
     }

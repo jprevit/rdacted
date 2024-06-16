@@ -6,7 +6,7 @@ export class MessagesController extends BaseController{
         super('api/messages')
         this.router
             .post('/:chatId', this.createMessage)
-            .get('/:chatId', this.getMessages)
+            .get('/:chatId', this.getMessagesByChat)
     }
     
     async createMessage(req, res, next) {
@@ -21,10 +21,10 @@ export class MessagesController extends BaseController{
         }
     }
 
-    async getMessages(req, res, next) {
+    async getMessagesByChat(req, res, next) {
         try {
             const chatId = req.params.chatId
-            const messages = await messagesService.getMessages(chatId)
+            const messages = await messagesService.getMessagesByChat(chatId)
             res.send(messages)
         } catch (error) {
             next(error)

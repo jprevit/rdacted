@@ -6,7 +6,7 @@ class MessagesService {
         return message
     }
     
-    async getMessages(chatId) {
+    async getMessagesByChat(chatId) {
         const messages = await dbContext.Message.find({chatId})
         return messages
     }
