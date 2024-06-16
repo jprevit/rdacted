@@ -9,7 +9,6 @@ export class ChatsController extends BaseController{
     }
     async createChat(req, res, next) {
         try {
-            const creator = req.userInfo
             const chatData = req.body
             const chat = await chatsService.createChat(chatData)
             res.send(chat)
