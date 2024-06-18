@@ -1,3 +1,4 @@
+<!-- eslint-disable no-console -->
 <script setup>
 import { ref } from 'vue';
 import { chatsService } from '../services/ChatsService.js';
@@ -13,6 +14,7 @@ const chatData = ref({
 
 async function createChat() {
     try {
+        console.log('creating', chatData.value);
         await chatsService.createChat(chatData)
     }
     catch (error) {
@@ -31,7 +33,8 @@ async function createChat() {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form v-if="!isLoading" action="" class="d-flex flex-column gap-3 align-items-center">
+                    <form @submit.prevent="createChat()" v-if="!isLoading" action=""
+                        class="d-flex flex-column gap-3 align-items-center">
                         <div class="d-flex gap-3 align-items-baseline">
                             <label for="alias">Alias</label>
                             <input v-model="chatData.alias" type="text" placeholder="Choose an Alias..." name="alias">
