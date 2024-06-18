@@ -15,7 +15,7 @@ const chatData = ref({
 async function createChat() {
     try {
         console.log('creating', chatData.value);
-        await chatsService.createChat(chatData)
+        await chatsService.createChat(chatData.value)
     }
     catch (error) {
         Pop.error(error);
