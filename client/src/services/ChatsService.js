@@ -7,14 +7,17 @@ import { usersService } from "./UsersService.js"
 class ChatsService{
     async createChat(chatData) {
         const chat = await api.post('api/chats', chatData)
-        console.log('created', chat);
+        // console.log('created', chat.data);
         const ownerResponse = await usersService.createUser(chatData)
         const owner = new User(ownerResponse.data)
-        console.log('created owner', owner);
+        // console.log('created owner', owner);
         AppState.activeuser = owner
         return chat
     }
-
+    
+    joinChat(joinData) {
+        console.log('joinData', joinData);
+    }
 
 }
 

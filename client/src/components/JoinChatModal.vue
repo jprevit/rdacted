@@ -1,5 +1,21 @@
 <script setup>
+import { ref } from 'vue';
+import { chatsService } from '../services/ChatsService.js';
+import Pop from '../utils/Pop.js';
 
+const joinData = ref({
+    joinCode: '',
+    alias: ''
+})
+
+async function joinChat() {
+    try {
+        await chatsService.joinChat(joinData.value)
+    }
+    catch (error) {
+        Pop.error(error);
+    }
+}
 </script>
 
 
@@ -12,14 +28,16 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="" class="d-flex flex-column gap-3 align-items-center justify-content-end">
+                    <form @submit.prevent="joinChat()"
+                        class="d-flex flex-column gap-3 align-items-center justify-content-end">
                         <div class="d-flex gap-3 align-items-baseline">
                             <label for="alias">Alias</label>
-                            <input type="text" placeholder="Choose an Alias..." name="alias">
+                            <input v-model="joinData.alias" type="text" placeholder="Choose an Alias..." name="alias">
                         </div>
                         <div class="d-flex gap-3 align-items-baseline">
                             <label for="alias">Code</label>
-                            <input type="text" placeholder="Enter your Join Code..." name="alias">
+                            <input v-model="joinData.alias" type="text" placeholder="Enter your Join Code..."
+                                name="alias">
                         </div>
                         <button type="submit" class="w-50 text-light">Create Chat</button>
                     </form>

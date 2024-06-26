@@ -4,7 +4,7 @@ import { ref } from 'vue';
 import { chatsService } from '../services/ChatsService.js';
 import Pop from '../utils/Pop.js';
 
-const isLoading = ''
+let isLoading = false
 
 const chatData = ref({
     joinCode: '',
@@ -14,7 +14,8 @@ const chatData = ref({
 
 async function createChat() {
     try {
-        console.log('creating', chatData.value);
+        // console.log('creating', chatData.value);
+        isLoading = true
         await chatsService.createChat(chatData.value)
     }
     catch (error) {
@@ -32,9 +33,8 @@ async function createChat() {
                     <h1 class="modal-title fs-5" id="createModalLabel">Create Chat</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <form @submit.prevent="createChat()" v-if="!isLoading" action=""
-                        class="d-flex flex-column gap-3 align-items-center">
+                <div v-if="!isLoading" class="modal-body">
+                    <form @submit.prevent="createChat()" class="d-flex flex-column gap-3 align-items-center">
                         <div class="d-flex gap-3 align-items-baseline">
                             <label for="alias">Alias</label>
                             <input v-model="chatData.alias" type="text" placeholder="Choose an Alias..." name="alias">
@@ -52,9 +52,16 @@ async function createChat() {
                         <button type="submit" class="w-50 text-light">Create Chat</button>
                     </form>
                 </div>
+                <div v-else class="d-flex flex-column justify-content-center align-items-center m-5 gap-3">
+                    <div class="spinner-border text-light" role="status">
+                    </div>
+                    <span class="text-light fs-4">Loading...</span>
+                </div>
             </div>
         </div>
     </div>
+
+
 </template>
 
 
