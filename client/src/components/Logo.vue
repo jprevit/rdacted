@@ -4,9 +4,7 @@ import rdacted from '../assets/img/rdacted.svg'
 
 
 <template>
-    <div class="p-3">
-        <img :src="rdacted" alt="">
-    </div>
+    <img :src="rdacted" alt="redacted logo" title="redacted logo" class="img-fluid">
 </template>
 
 
