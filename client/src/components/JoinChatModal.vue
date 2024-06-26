@@ -36,10 +36,10 @@ async function joinChat() {
                         </div>
                         <div class="d-flex gap-3 align-items-baseline">
                             <label for="alias">Code</label>
-                            <input v-model="joinData.alias" type="text" placeholder="Enter your Join Code..."
-                                name="alias">
+                            <input v-model="joinData.joinCode" type="text" placeholder="Enter your Join Code..."
+                                name="join code">
                         </div>
-                        <button type="submit" class="w-50 text-light">Create Chat</button>
+                        <button type="submit" class="w-50 text-light">Join Chat</button>
                     </form>
                 </div>
             </div>
