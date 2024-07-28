@@ -1,5 +1,11 @@
 <script setup>
-import anonicon from '../assets/img/AnonIcon.svg'
+import anonicon from '../assets/img/AnonIcon.svg';
+import { User } from '../models/User.js';
+
+
+defineProps(
+    { user: { type: User } }
+)
 </script>
 
 

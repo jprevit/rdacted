@@ -22,6 +22,7 @@ class ChatsService{
         // console.log('joindata', joinData);
         const user = await usersService.createUser(joinData)
         console.log('user?', user.data);
+        AppState.activeuser = new User(user.data)
     }
 
 }

@@ -1,5 +1,8 @@
 <script setup>
+import { computed } from 'vue';
+import { AppState } from '../AppState.js';
 
+const user = computed(() => AppState.activeuser)
 </script>
 
 
@@ -14,7 +17,7 @@
             <div class="col-12 d-flex flex-column textbox chatlog justify-content-end">Chatlog goes here</div>
         </section>
         <section class="row px-1 mt-3 m-1 text-light justify-content-between align-items-center">
-            <UserIcon />
+            <UserIcon :user="user" />
             <textarea class="col-8 textbox text-light" rows="5"></textarea>
             <button class="col-2 text-light"><i class="mdi mdi-send"></i></button>
         </section>
