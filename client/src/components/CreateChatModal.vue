@@ -3,6 +3,7 @@
 import { ref } from 'vue';
 import { chatsService } from '../services/ChatsService.js';
 import Pop from '../utils/Pop.js';
+import { router } from '../router.js';
 
 let isLoading = false
 
@@ -16,7 +17,8 @@ async function createChat() {
     try {
         // console.log('creating', chatData.value);
         isLoading = true
-        await chatsService.createChat(chatData.value)
+        const chat = await chatsService.createChat(chatData.value)
+        router.push('chat')
     }
     catch (error) {
         Pop.error(error);
