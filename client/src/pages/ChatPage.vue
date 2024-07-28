@@ -10,7 +10,9 @@ const user = computed(() => AppState.activeuser)
     <section class="container-fluid text-light">
         <header class="my-2">
             <section class="row ps-3">
-                <Logo class="col-2" />
+                <RouterLink to="/">
+                    <Logo class="col-2" />
+                </RouterLink>
             </section>
         </header>
         <section class="row px-2 m-1 text-light">
