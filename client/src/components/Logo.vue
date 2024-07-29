@@ -19,7 +19,7 @@ span {
 }
 
 .maxwidth80 {
-    max-width: 80%;
+    max-width: 75%;
     justify-self: center;
 }
 </style>
