@@ -2,6 +2,10 @@
 import { ref } from 'vue';
 import { chatsService } from '../services/ChatsService.js';
 import Pop from '../utils/Pop.js';
+import { Modal } from 'bootstrap';
+import { router } from '../router.js';
+
+let isLoading = false
 
 const joinData = ref({
     joinCode: '',
@@ -10,7 +14,10 @@ const joinData = ref({
 
 async function joinChat() {
     try {
+        isLoading = true
         await chatsService.joinChat(joinData.value)
+        Modal.getOrCreateInstance('#joinModal').hide()
+        router.push({ name: 'Chat' })
     }
     catch (error) {
         Pop.error(error);

@@ -1,11 +1,9 @@
 <!-- eslint-disable no-console -->
 <script setup>
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import { chatsService } from '../services/ChatsService.js';
 import Pop from '../utils/Pop.js';
 import { router } from '../router.js';
-import { Chat } from '../models/Chat.js';
-import { AppState } from '../AppState.js';
 import { Modal } from 'bootstrap';
 
 let isLoading = false
@@ -16,7 +14,7 @@ const chatData = ref({
     alias: ''
 })
 
-const chat = computed(() => AppState.activeChat)
+
 
 async function createChat() {
     try {
