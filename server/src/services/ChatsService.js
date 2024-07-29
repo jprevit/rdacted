@@ -6,8 +6,8 @@ class ChatsService{
         return chat
     }
     
-    async getChatByName(chatId) {
-        const chat = await dbContext.Chat.findOne({name: chatId})
+    async getChatById(chatId) {
+        const chat = await dbContext.Chat.findById(chatId)
         return chat
     }
     async getChatbyJoinCode(joinCodeData) {

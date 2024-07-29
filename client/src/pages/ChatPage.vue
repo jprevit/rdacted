@@ -1,9 +1,26 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { AppState } from '../AppState.js';
+import Pop from '../utils/Pop.js';
+import { chatsService } from '../services/ChatsService.js';
+import { useRoute } from 'vue-router';
 
 const user = computed(() => AppState.activeUser)
 const chat = computed(() => AppState.activeChat)
+const route = useRoute()
+
+async function getChat() {
+    try {
+        await chatsService.getChatById(route.params.chatId)
+    }
+    catch (error) {
+        Pop.error(error);
+    }
+}
+
+onMounted(() => {
+    getChat()
+})
 </script>
 
 
@@ -15,7 +32,7 @@ const chat = computed(() => AppState.activeChat)
                 <RouterLink to="/" class="col-2">
                     <Logo />
                 </RouterLink>
-                <p class="fs-1 col mb-0">{{ chat.name }}</p>
+                <p class="fs-1 col mb-0">{{ chat?.name }}</p>
             </section>
         </header>
 

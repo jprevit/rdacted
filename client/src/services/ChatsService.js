@@ -1,10 +1,16 @@
 /* eslint-disable no-console */
 import { AppState } from "../AppState.js"
+import { Chat } from "../models/Chat.js";
 import { User } from "../models/User.js";
 import { api } from "./AxiosService.js"
 import { usersService } from "./UsersService.js"
 
 class ChatsService{
+    async getChatById(chatId) {
+        const res = await api.get(`api/chats/${chatId}`)
+        console.log('getting by Id', res);
+        AppState.activeChat = new Chat(res.data)
+    }
     async createChat(chatData) {
         const chat = await api.post('api/chats', chatData)
         // console.log('created', chat.data);

@@ -1,16 +1,19 @@
 <!-- eslint-disable no-console -->
 <script setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { chatsService } from '../services/ChatsService.js';
 import Pop from '../utils/Pop.js';
 import { Modal } from 'bootstrap';
 import { router } from '../router.js';
 import { Chat } from '../models/Chat.js';
+import { AppState } from '../AppState.js';
+
+const chat = computed(() => AppState.activeChat)
 
 let isLoading = false
 
 const joinData = ref({
-    joinCode: '',
+    joinCode: AppState.activeChat.joinCode || '',
     alias: ''
 })
 
@@ -45,7 +48,7 @@ async function joinChat() {
                             <label for="alias">Alias</label>
                             <input v-model="joinData.alias" type="text" placeholder="Choose an Alias..." name="alias">
                         </div>
-                        <div class="d-flex gap-3 align-items-baseline">
+                        <div v-if="!chat" class="d-flex gap-3 align-items-baseline">
                             <label for="alias">Code</label>
                             <input v-model="joinData.joinCode" type="text" placeholder="Enter your Join Code..."
                                 name="join code">

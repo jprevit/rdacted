@@ -7,7 +7,7 @@ export class ChatsController extends BaseController{
         this.router
             .post('', this.createChat)
             .get('/join/:joinCode', this.getChatByJoinCode)
-            .get('/:chatId', this.getChatByName)
+            .get('/:chatId', this.getChatById)
     }
     
     async createChat(req, res, next) {
@@ -20,10 +20,10 @@ export class ChatsController extends BaseController{
         }
     }
 
-    async getChatByName(req, res, next) {
+    async getChatById(req, res, next) {
         try {
             const chatId = req.params.chatId
-            const chat = await chatsService.getChatByName(chatId)
+            const chat = await chatsService.getChatById(chatId)
             res.send(chat)
         } catch (error) {
             next(error)
