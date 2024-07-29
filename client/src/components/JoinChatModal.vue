@@ -13,7 +13,7 @@ const chat = computed(() => AppState.activeChat)
 let isLoading = false
 
 const joinData = ref({
-    joinCode: AppState.activeChat.joinCode || '',
+    joinCode: AppState.activeChat?.joinCode || '',
     alias: ''
 })
 
@@ -41,20 +41,25 @@ async function joinChat() {
                     <h1 class="modal-title fs-5" id="joinModalLabel">Join Chat</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div v-if="!isLoading" class="modal-body">
                     <form @submit.prevent="joinChat()"
                         class="d-flex flex-column gap-3 align-items-center justify-content-end">
                         <div class="d-flex gap-3 align-items-baseline">
                             <label for="alias">Alias</label>
                             <input v-model="joinData.alias" type="text" placeholder="Choose an Alias..." name="alias">
                         </div>
-                        <div v-if="!chat" class="d-flex gap-3 align-items-baseline">
+                        <div class="d-flex gap-3 align-items-baseline">
                             <label for="alias">Code</label>
                             <input v-model="joinData.joinCode" type="text" placeholder="Enter your Join Code..."
                                 name="join code">
                         </div>
                         <button type="submit" class="w-50 text-light">Join Chat</button>
                     </form>
+                </div>
+                <div v-else class="d-flex flex-column justify-content-center align-items-center m-5 gap-3">
+                    <div class="spinner-border text-light" role="status">
+                    </div>
+                    <span class="text-light fs-4">Loading...</span>
                 </div>
             </div>
         </div>
