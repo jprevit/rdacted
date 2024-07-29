@@ -1,9 +1,10 @@
 <script setup>
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { AppState } from '../AppState.js';
 import Pop from '../utils/Pop.js';
 import { chatsService } from '../services/ChatsService.js';
 import { useRoute } from 'vue-router';
+import { messagesService } from '../services/MessagesService.js';
 
 const user = computed(() => AppState.activeUser)
 const chat = computed(() => AppState.activeChat)
@@ -18,8 +19,32 @@ async function getChat() {
     }
 }
 
+async function getMessages() {
+    try {
+        await messagesService.getMessages(route.params.chatId)
+    }
+    catch (error) {
+        Pop.error(error);
+    }
+}
+
+async function sendMessage() {
+    try {
+        await messagesService.sendMessage(route.params.chatId, messageData.value)
+    }
+    catch (error) {
+        Pop.error(error);
+    }
+}
+
+const messageData = ref({
+    content: '',
+    creatorId: user.value.id
+})
+
 onMounted(() => {
     getChat()
+    getMessages()
 })
 </script>
 
@@ -44,7 +69,7 @@ onMounted(() => {
             <UserIcon :user="user" />
             <form v-if="user" @submit="sendMessage()" class="col-10 ">
                 <div class="row justify-content-between align-items-center">
-                    <textarea class="textbox col text-light" rows="5"></textarea>
+                    <textarea v-model="messageData.content" class="textbox col text-light" rows="5"></textarea>
                     <button class="text-light"><i class="mdi mdi-send"></i></button>
                 </div>
             </form>

@@ -1,6 +1,7 @@
 import { reactive } from 'vue'
 import { User } from './models/User.js'
 import { Chat } from './models/Chat.js'
+import { Message } from './models/Message.js'
 
 // NOTE AppState is a reactive object to contain app level data
 export const AppState = reactive({
@@ -12,6 +13,10 @@ export const AppState = reactive({
   /**@type {User} */
   activeUser: null,
 
-    /**@type {Chat} */
-    activeChat: null
+  /**@type {Chat} */
+  activeChat: null,
+  
+  /**@type {Message[]} */
+  messages: []
+
 })
