@@ -11,7 +11,8 @@ class ChatsService{
         const ownerResponse = await usersService.createUser(chatData)
         const owner = new User(ownerResponse.data)
         // console.log('created owner', owner);
-        AppState.activeuser = owner
+        AppState.activeUser = owner
+        AppState.activeChat = chat.data
         return chat
     }
     
@@ -22,7 +23,8 @@ class ChatsService{
         // console.log('joindata', joinData);
         const user = await usersService.createUser(joinData)
         console.log('user?', user.data);
-        AppState.activeuser = new User(user.data)
+        AppState.activeUser = new User(user.data)
+        AppState.activeChat = chat.data
     }
 
 }

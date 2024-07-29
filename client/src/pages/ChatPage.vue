@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 import { AppState } from '../AppState.js';
 
-const user = computed(() => AppState.activeuser)
+const user = computed(() => AppState.activeUser)
 </script>
 
 
