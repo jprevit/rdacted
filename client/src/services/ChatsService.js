@@ -18,13 +18,14 @@ class ChatsService{
     
     async joinChat(joinData) {
         const chat = await api.get(`api/chats/join/${joinData.joinCode}`)
-        console.log('chat', chat.data||'nothing');
+        // console.log('chat', chat.data||'nothing');
         joinData.name = chat.data.name
         // console.log('joindata', joinData);
         const user = await usersService.createUser(joinData)
         console.log('user?', user.data);
         AppState.activeUser = new User(user.data)
         AppState.activeChat = chat.data
+        return chat
     }
 
 }

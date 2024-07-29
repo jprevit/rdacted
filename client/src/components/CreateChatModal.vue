@@ -5,6 +5,7 @@ import { chatsService } from '../services/ChatsService.js';
 import Pop from '../utils/Pop.js';
 import { router } from '../router.js';
 import { Modal } from 'bootstrap';
+import { Chat } from '../models/Chat.js';
 
 let isLoading = false
 
@@ -20,9 +21,11 @@ async function createChat() {
     try {
         // console.log('creating', chatData.value);
         isLoading = true
-        await chatsService.createChat(chatData.value)
+        const chatCreated = await chatsService.createChat(chatData.value)
+        // console.log('creating', chatCreated);
         Modal.getOrCreateInstance('#createModal').hide()
-        router.push({ name: 'Chat' })
+        router.push({ name: 'Chat', params: { chatId: chatCreated.data.id } })
+        isLoading = false
     }
     catch (error) {
         Pop.error(error);

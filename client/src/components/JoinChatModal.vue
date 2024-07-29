@@ -1,9 +1,11 @@
+<!-- eslint-disable no-console -->
 <script setup>
 import { ref } from 'vue';
 import { chatsService } from '../services/ChatsService.js';
 import Pop from '../utils/Pop.js';
 import { Modal } from 'bootstrap';
 import { router } from '../router.js';
+import { Chat } from '../models/Chat.js';
 
 let isLoading = false
 
@@ -15,9 +17,11 @@ const joinData = ref({
 async function joinChat() {
     try {
         isLoading = true
-        await chatsService.joinChat(joinData.value)
+        const chatToJoin = await chatsService.joinChat(joinData.value)
+        // console.log('joining', chatToJoin);
         Modal.getOrCreateInstance('#joinModal').hide()
-        router.push({ name: 'Chat' })
+        router.push({ name: 'Chat', params: { chatId: chatToJoin.data.id } })
+        isLoading = false
     }
     catch (error) {
         Pop.error(error);
