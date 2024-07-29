@@ -15,7 +15,7 @@ defineProps(
             <img :src="anonicon" alt="anon icon" title="anonymous icon">
         </div>
         <div class="row text-center">
-            <span class="fs-6">User Alias</span>
+            <span class="fs-6">{{ user.alias }}</span>
         </div>
     </div>
 </template>
