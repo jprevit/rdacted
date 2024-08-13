@@ -9,6 +9,7 @@ import { messagesService } from '../services/MessagesService.js';
 const user = computed(() => AppState.activeUser)
 const chat = computed(() => AppState.activeChat)
 const route = useRoute()
+const messages = computed(() => AppState.messages)
 
 async function getChat() {
     try {
@@ -30,6 +31,7 @@ async function getMessages() {
 
 async function sendMessage() {
     try {
+        console.log(messageData.value);
         await messagesService.sendMessage(route.params.chatId, messageData.value)
     }
     catch (error) {
@@ -62,12 +64,14 @@ onMounted(() => {
         </header>
 
         <section class="row px-2 m-1 text-light">
-            <div class="col-12 d-flex flex-column textbox chatlog justify-content-end">Chatlog goes here</div>
+            <div class="col-12 d-flex flex-column textbox chatlog justify-content-end">
+                <p v-for="message in messages" :key="message.id">{{ message.content }}</p>
+            </div>
         </section>
 
         <section class="row px-1 mt-3 m-1 text-light align-items-center">
             <UserIcon :user="user" />
-            <form v-if="user" @submit="sendMessage()" class="col-10 ">
+            <form v-if="user" @submit.prevent="sendMessage()" class="col-10 ">
                 <div class="row justify-content-between align-items-center">
                     <textarea v-model="messageData.content" class="textbox col text-light" rows="5"></textarea>
                     <button class="text-light"><i class="mdi mdi-send"></i></button>
