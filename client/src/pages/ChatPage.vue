@@ -1,3 +1,4 @@
+<!-- eslint-disable no-console -->
 <script setup>
 import { computed, onMounted, ref } from 'vue';
 import { AppState } from '../AppState.js';
@@ -31,8 +32,8 @@ async function getMessages() {
 
 async function sendMessage() {
     try {
-        console.log(messageData.value);
         await messagesService.sendMessage(route.params.chatId, messageData.value)
+        messageData.value.content = ''
     }
     catch (error) {
         Pop.error(error);
@@ -41,6 +42,7 @@ async function sendMessage() {
 
 const messageData = ref({
     content: '',
+    alias: user.value.alias,
     creatorId: user.value.id
 })
 
@@ -59,13 +61,19 @@ onMounted(() => {
                 <RouterLink to="/" class="col-2">
                     <Logo />
                 </RouterLink>
+
                 <p class="fs-1 col mb-0">{{ chat?.name }}</p>
+                <button class="m-2 text-light" @click="getMessages()"><i class="mdi mdi-refresh"></i></button>
             </section>
         </header>
 
         <section class="row px-2 m-1 text-light">
             <div class="col-12 d-flex flex-column textbox chatlog justify-content-end">
-                <p v-for="message in messages" :key="message.id">{{ message.content }}</p>
+                <div v-for="message in messages" :key="message.id"
+                    :class="user.id == message.creatorId ? 'text-end' : 'text-start'">
+                    <p class="fs-6 mb-0">{{ message.alias }}</p>
+                    <p class="fs-5 message rounded-pill d-inline-block px-3">{{ message.content }}</p>
+                </div>
             </div>
         </section>
 
@@ -90,6 +98,10 @@ onMounted(() => {
 
 .chatlog {
     height: 50vh;
+}
+
+.message {
+    background-color: #505b47;
 }
 
 button {
