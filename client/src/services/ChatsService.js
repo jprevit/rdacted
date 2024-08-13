@@ -11,15 +11,16 @@ class ChatsService{
         console.log('getting by Id', res);
         AppState.activeChat = new Chat(res.data)
     }
-    async createChat(chatData) {
-        const chat = await api.post('api/chats', chatData)
-        // console.log('created', chat.data);
-        const ownerResponse = await usersService.createUser(chatData)
+    async createChat(chatFormData) {
+        const createdChat = await api.post('api/chats', chatFormData)
+        console.log('created', createdChat.data);
+        chatFormData.chatId = createdChat.data.id
+        const ownerResponse = await usersService.createUser(chatFormData, createdChat)
         const owner = new User(ownerResponse.data)
         // console.log('created owner', owner);
         AppState.activeUser = owner
-        AppState.activeChat = chat.data
-        return chat
+        AppState.activeChat = createdChat.data
+        return createdChat
     }
     
     async joinChat(joinData) {

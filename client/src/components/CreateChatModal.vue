@@ -9,19 +9,20 @@ import { Chat } from '../models/Chat.js';
 
 let isLoading = false
 
-const chatData = ref({
+const chatFormData = ref({
     joinCode: '',
     name: '',
-    alias: ''
+    alias: '',
+    chatId: ''
 })
 
 
 
 async function createChat() {
     try {
-        // console.log('creating', chatData.value);
+        // console.log('creating', chatFormData.value);
         isLoading = true
-        const chatCreated = await chatsService.createChat(chatData.value)
+        const chatCreated = await chatsService.createChat(chatFormData.value)
         // console.log('creating', chatCreated);
         Modal.getOrCreateInstance('#createModal').hide()
         router.push({ name: 'Chat', params: { chatId: chatCreated.data.id } })
@@ -46,16 +47,17 @@ async function createChat() {
                     <form @submit.prevent="createChat()" class="d-flex flex-column gap-3 align-items-center">
                         <div class="d-flex gap-3 align-items-baseline">
                             <label for="alias">Alias</label>
-                            <input v-model="chatData.alias" type="text" placeholder="Choose an Alias..." name="alias">
+                            <input v-model="chatFormData.alias" type="text" placeholder="Choose an Alias..."
+                                name="alias">
                         </div>
                         <div class="d-flex gap-3 align-items-baseline">
                             <label for="alias">Chat Name</label>
-                            <input v-model="chatData.name" type="text" placeholder="Choose a Chatroom Name..."
+                            <input v-model="chatFormData.name" type="text" placeholder="Choose a Chatroom Name..."
                                 name="alias">
                         </div>
                         <div class="d-flex gap-3 align-items-baseline">
                             <label for="alias">Join Code</label>
-                            <input v-model="chatData.joinCode" type="text" placeholder="Choose a Join Code..."
+                            <input v-model="chatFormData.joinCode" type="text" placeholder="Choose a Join Code..."
                                 name="alias">
                         </div>
                         <button type="submit" class="w-50 text-light">Create Chat</button>

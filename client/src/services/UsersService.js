@@ -1,8 +1,15 @@
+import { AppState } from "../AppState.js"
+import { User } from "../models/User.js"
 import { api } from "./AxiosService.js"
 
 class UsersService{
-    async createUser(data) {
-       const user = await api.post(`api/users/${data.name}`, data)
+    async getUsersByChatId(chatId) {
+        const res = await api.get(`api/users/${chatId}`)
+        const users = res.data.map(user => new User(user))
+        AppState.chatUsers = users
+    }
+    async createUser(chatFormData, createdChat) {
+       const user = await api.post(`api/users/${createdChat.id}`, chatFormData)
        return user
     }
 

@@ -17,6 +17,10 @@ export const AppState = reactive({
   activeChat: null,
   
   /**@type {Message[]} */
-  messages: []
+  messages: [],
+
+  /**@type {User[]} */
+  chatUsers: null
+
 
 })

@@ -6,11 +6,13 @@ import Pop from '../utils/Pop.js';
 import { chatsService } from '../services/ChatsService.js';
 import { useRoute } from 'vue-router';
 import { messagesService } from '../services/MessagesService.js';
+import { usersService } from '../services/UsersService.js';
 
 const user = computed(() => AppState.activeUser)
 const chat = computed(() => AppState.activeChat)
 const route = useRoute()
 const messages = computed(() => AppState.messages)
+const chatUsers = computed(() => AppState.chatUsers)
 
 async function getChat() {
     try {
@@ -40,6 +42,15 @@ async function sendMessage() {
     }
 }
 
+async function getUsers() {
+    try {
+        await usersService.getUsersByChatId(chat.value.id)
+    }
+    catch (error) {
+        Pop.error(error);
+    }
+}
+
 const messageData = ref({
     content: '',
     alias: user.value.alias,
@@ -48,6 +59,7 @@ const messageData = ref({
 
 onMounted(() => {
     getChat()
+    getUsers()
     getMessages()
 })
 </script>
@@ -68,7 +80,13 @@ onMounted(() => {
         </header>
 
         <section class="row px-2 m-1 text-light">
-            <div class="col-12 d-flex flex-column textbox chatlog justify-content-end">
+            <div class="col-1 d-flex flex-column userlist">
+                <p class="fs-6 text-center mb-0">User List</p>
+                <button class="m-2 text-light" @click="getMessages()"><i class="mdi mdi-refresh"></i></button>
+                <hr>
+                <p v-for="user in chatUsers" :key="user.id">{{ user.alias }}</p>
+            </div>
+            <div class="col d-flex flex-column textbox chatlog justify-content-end">
                 <div v-for="message in messages" :key="message.id"
                     :class="user.id == message.creatorId ? 'text-end' : 'text-start'">
                     <p class="fs-6 mb-0">{{ message.alias }}</p>
@@ -81,7 +99,7 @@ onMounted(() => {
             <UserIcon :user="user" />
             <form v-if="user" @submit.prevent="sendMessage()" class="col-10 ">
                 <div class="row justify-content-between align-items-center">
-                    <input v-model="messageData.content" class="textbox col text-light" rows="5"></input>
+                    <input v-model="messageData.content" class="textbox col text-light">
                     <button type="submit" class="text-light"><i class="mdi mdi-send"></i></button>
                 </div>
             </form>
@@ -92,8 +110,15 @@ onMounted(() => {
 
 
 <style lang="scss" scoped>
+.userlist {
+    background-color: #A2B990;
+    margin-right: 2em;
+}
+
 .textbox {
     background-color: #A2B990;
+    border: none;
+    height: 6vh;
 }
 
 .chatlog {
@@ -102,11 +127,6 @@ onMounted(() => {
 
 .message {
     background-color: #505b47;
-}
-
-input {
-    border: #A2B990;
-    height: 6vh;
 }
 
 button {
