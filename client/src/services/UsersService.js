@@ -9,7 +9,7 @@ class UsersService{
         AppState.chatUsers = users
     }
     async createUser(chatFormData, createdChat) {
-       const user = await api.post(`api/users/${createdChat.id}`, chatFormData)
+       const user = await api.post(`api/users/${createdChat.data.id}`, chatFormData)
        return user
     }
 

@@ -13,8 +13,9 @@ class ChatsService{
     }
     async createChat(chatFormData) {
         const createdChat = await api.post('api/chats', chatFormData)
-        console.log('created', createdChat.data);
+        debugger
         chatFormData.chatId = createdChat.data.id
+        // console.log('created', createdChat.data);
         const ownerResponse = await usersService.createUser(chatFormData, createdChat)
         const owner = new User(ownerResponse.data)
         // console.log('created owner', owner);
@@ -26,9 +27,10 @@ class ChatsService{
     async joinChat(joinData) {
         const chat = await api.get(`api/chats/join/${joinData.joinCode}`)
         // console.log('chat', chat.data||'nothing');
-        joinData.name = chat.data.name
+        joinData.id = chat.data.id
         // console.log('joindata', joinData);
-        const user = await usersService.createUser(joinData)
+        // debugger
+        const user = await usersService.createUser(joinData, chat)
         console.log('user?', user.data);
         AppState.activeUser = new User(user.data)
         AppState.activeChat = chat.data

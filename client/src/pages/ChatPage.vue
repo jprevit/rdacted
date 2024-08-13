@@ -81,8 +81,11 @@ onMounted(() => {
 
         <section class="row px-2 m-1 text-light">
             <div class="col-1 d-flex flex-column userlist">
-                <p class="fs-6 text-center mb-0">User List</p>
-                <button class="m-2 text-light" @click="getMessages()"><i class="mdi mdi-refresh"></i></button>
+                <div class="row">
+                    <p class="fs-6 text-center mb-0">User List</p>
+                    <button class="m-2 text-light userlistrefresh text-center" @click="getMessages()"><i
+                            class="mdi mdi-refresh"></i></button>
+                </div>
                 <hr>
                 <p v-for="user in chatUsers" :key="user.id">{{ user.alias }}</p>
             </div>
@@ -113,6 +116,13 @@ onMounted(() => {
 .userlist {
     background-color: #A2B990;
     margin-right: 2em;
+}
+
+.userlistrefresh {
+    background-color: #505b47;
+    max-height: 2em;
+    display: inline-block;
+    font-size: small;
 }
 
 .textbox {
