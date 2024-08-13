@@ -81,8 +81,8 @@ onMounted(() => {
             <UserIcon :user="user" />
             <form v-if="user" @submit.prevent="sendMessage()" class="col-10 ">
                 <div class="row justify-content-between align-items-center">
-                    <textarea v-model="messageData.content" class="textbox col text-light" rows="5"></textarea>
-                    <button class="text-light"><i class="mdi mdi-send"></i></button>
+                    <input v-model="messageData.content" class="textbox col text-light" rows="5"></input>
+                    <button type="submit" class="text-light"><i class="mdi mdi-send"></i></button>
                 </div>
             </form>
         </section>
@@ -102,6 +102,11 @@ onMounted(() => {
 
 .message {
     background-color: #505b47;
+}
+
+input {
+    border: #A2B990;
+    height: 6vh;
 }
 
 button {
